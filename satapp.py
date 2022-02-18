@@ -8,6 +8,7 @@ def testtype(scores):
     input: csv with raw score data
     output: cleaned dataframe, removes values without email or test, creates new boolean test column
     """
+    scores.columns = scores.columns.str.lstrip()
     scores.loc[:,"Test Type"] = pd.Series(np.where(scores["Test name"].str.contains("Test"), "SAT", "ACT"))
     scores = scores.dropna(subset=['Email', 'Test name'])
     return scores
